@@ -1,0 +1,51 @@
+{
+  "name": "koa-shell",
+  "version": "0.1.0",
+  "description": "Web server for executing shell scripts",
+  "repository": "https://github.com/Shingyx/koa-shell",
+  "license": "MIT",
+  "author": "Su-Shing Chen",
+  "files": [
+    "dist/!(__tests__)"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": "dist/cli.js",
+  "scripts": {
+    "prebuild": "yarn clean",
+    "build": "tsc",
+    "build-test": "yarn build && yarn test",
+    "clean": "rimraf dist",
+    "format": "yarn tslint --fix && yarn prettier --write",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn test",
+    "prettier": "prettier --list-different \"src/**/*.ts\" \"*.md\"",
+    "test": "jest --coverage",
+    "posttest": "yarn tslint && yarn prettier",
+    "tslint": "tslint --project tsconfig.json"
+  },
+  "jest": {
+    "testMatch": [
+      "**/*.test.js"
+    ]
+  },
+  "dependencies": {
+    "ajv": "^6.10.0",
+    "koa": "^2.7.0",
+    "koa-router": "7.4.0",
+    "path-to-regexp": "^3.0.0",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "@types/koa": "^2.0.48",
+    "@types/koa-router": "^7.0.40",
+    "@types/node": "^11.13.2",
+    "jest": "^24.7.1",
+    "prettier": "^1.16.4",
+    "rimraf": "^2.6.3",
+    "tslint": "^5.15.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.2"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "test koa server",
+  "port": 9001,
+  "commands": [
+    {
+      "id": "test",
+      "description": "tests the thing",
+      "script": "echo Hello world!"
+    }
+  ]
+}
