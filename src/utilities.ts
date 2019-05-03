@@ -10,17 +10,17 @@ const ajvValidate = new Ajv().compile({
     type: 'object',
     required: ['name', 'port', 'commands'],
     properties: {
-        name: { type: 'string' },
-        port: { type: 'integer' },
+        name: { type: 'string', minLength: 1 },
+        port: { type: 'integer', minimum: 0, maximum: 65535 },
         commands: {
             type: 'array',
             items: {
                 type: 'object',
                 required: ['id', 'description', 'script'],
                 properties: {
-                    id: { type: 'string' },
-                    description: { type: 'string' },
-                    script: { type: 'string' },
+                    id: { type: 'string', minLength: 1 },
+                    description: { type: 'string', minLength: 1 },
+                    script: { type: 'string', minLength: 1 },
                 },
             },
             minItems: 1,

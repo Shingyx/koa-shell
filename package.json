@@ -33,7 +33,6 @@
     "ajv": "^6.10.0",
     "koa": "^2.7.0",
     "koa-router": "7.4.0",
-    "path-to-regexp": "^3.0.0",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
