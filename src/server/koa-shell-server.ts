@@ -9,6 +9,7 @@ import { executeCommand, validateConfig } from './utilities';
 export class KoaShellServer {
     private readonly app: Koa;
     private server?: Server;
+    private globalRequestId: number = 0;
 
     constructor(private readonly config: IKoaShellConfig) {
         validateConfig(config);
@@ -16,11 +17,26 @@ export class KoaShellServer {
         this.app = new Koa();
 
         this.app.use(async (ctx, next) => {
+            const requestId = ++this.globalRequestId % Number.MAX_SAFE_INTEGER;
+            console.log(
+                `received request - ${JSON.stringify({
+                    requestId,
+                    path: ctx.path,
+                })}`,
+            );
             try {
                 await next();
             } catch (err) {
                 console.error(err);
                 ctx.throw(500);
+            } finally {
+                console.log(
+                    `responded to request - ${JSON.stringify({
+                        requestId,
+                        status: ctx.status,
+                        body: ctx.body || null,
+                    })}`,
+                );
             }
         });
 

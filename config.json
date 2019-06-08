@@ -3,14 +3,24 @@
   "port": 9001,
   "commands": [
     {
-      "id": "Hello World!",
+      "id": "hello-world",
       "description": "Echos 'Hello World!'",
       "script": "echo Hello world!"
     },
     {
-      "id": "Goodbye World!",
-      "description": "Echos 'Goodbye World!'",
-      "script": "echo Goodbye world!"
+      "id": "hello-other-world",
+      "description": "Echos 'Hello Other World!'",
+      "script": "echo Hello Other World!"
+    },
+    {
+      "id": "long-task",
+      "description": "Waits 5 seconds before replying",
+      "script": "node -e \"setTimeout(() => console.log('That took a while'), 5000)\""
+    },
+    {
+      "id": "error-test",
+      "description": "A command which fails",
+      "script": "node -e \"console.error('This failed');process.exit(1);\""
     }
   ]
 }

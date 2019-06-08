@@ -1,9 +1,6 @@
 import Ajv from 'ajv';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { spawn } from 'child_process';
 import { ICommandResult, IKoaShellConfig } from '../interfaces';
-
-const execPromise = promisify(exec);
 
 const ajvValidate = new Ajv().compile({
     type: 'object',
@@ -42,13 +39,17 @@ export function validateConfig(config: IKoaShellConfig): void {
 }
 
 export async function executeCommand(command: string): Promise<ICommandResult> {
-    let exitCode = 0;
-    let stdout: string;
-    let stderr: string;
-    try {
-        ({ stdout, stderr } = await execPromise(command));
-    } catch (err) {
-        ({ code: exitCode, stdout, stderr } = err);
-    }
-    return { exitCode, stdout, stderr };
+    let success = false;
+    let output = '';
+    await new Promise((resolve) => {
+        const child = spawn(command, { shell: true });
+        child.stdout.on('data', (data) => (output += data));
+        child.stderr.on('data', (data) => (output += data));
+        child.on('close', (code) => {
+            success = code === 0;
+            resolve();
+        });
+    });
+    output = output.trim();
+    return { success, output };
 }

@@ -11,7 +11,6 @@ export interface ICommand {
 }
 
 export interface ICommandResult {
-    exitCode: number;
-    stdout: string;
-    stderr: string;
+    success: boolean;
+    output: string;
 }
