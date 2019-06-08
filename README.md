@@ -4,9 +4,9 @@
 
 _koa-shell_ is a configurable REST-based web server used to execute shell commands, bundled with a web application for convenience.
 
-This can be used to remotely send commands to a host running on the local network, which may be managing a smart home network or hosting a network drive. This can be done through the REST API directly or through the bundled web application.
+This can be used to remotely send commands to a computer running on the local network, e.g. one used to manage a smart home network or host a network drive. This can be done through the REST API directly or through the bundled web application.
 
-_koa-shell_ is intended to only be used from within the the local network. I would not recommend exposing this server to the Internet.
+_koa-shell_ is intended to only be used from within the the local network. I would not recommend exposing this server to the Internet without additional security layers.
 
 ![Screenshot](https://raw.github.com/Shingyx/koa-shell/master/.github/screenshot.jpg)
 
@@ -91,6 +91,11 @@ Executes the command with the provided id.
 $ curl -X POST http://localhost/api/commands/ping
 {"success":true,"output":"PONG"}
 ```
+
+## Notes
+
+-   _koa-shell_ can be imported as a library.
+-   You may want to use a process manager such as `runit` to manage the server.
 
 [travis-image]: https://img.shields.io/travis/com/Shingyx/koa-shell/master.svg?style=flat-square
 [travis-url]: https://travis-ci.com/Shingyx/koa-shell
