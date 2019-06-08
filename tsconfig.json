@@ -3,11 +3,13 @@
     "target": "es2018",
     "module": "commonjs",
     "lib": [
+      "dom",
       "es2018"
     ],
     "outDir": "dist",
     "declaration": true,
     "esModuleInterop": true,
+    "jsx": "react",
     "importHelpers": true,
     "noUnusedLocals": true,
     "sourceMap": true,

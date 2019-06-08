@@ -1,5 +1,5 @@
-import { IKoaShellConfig } from '../index';
-import { validateConfig } from '../utilities';
+import { IKoaShellConfig } from '../../interfaces';
+import { validateConfig } from '../../server/utilities';
 
 describe('validateConfig', () => {
     test('valid config does not throw', () => {

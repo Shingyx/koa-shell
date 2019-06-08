@@ -5,9 +5,14 @@
   ],
   "rules": {
     "await-promise": true,
+    "import-blacklist": [
+      true,
+      "@material-ui/core"
+    ],
     "no-console": false,
     "no-floating-promises": true,
     "no-implicit-dependencies": [true, "dev"],
+    "no-submodule-imports": false,
     "object-literal-sort-keys": false
   }
 }

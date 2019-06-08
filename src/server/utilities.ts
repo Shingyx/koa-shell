@@ -1,12 +1,11 @@
 import Ajv from 'ajv';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { ICommandResult, IKoaShellConfig } from './index';
+import { ICommandResult, IKoaShellConfig } from '../interfaces';
 
 const execPromise = promisify(exec);
 
 const ajvValidate = new Ajv().compile({
-    $schema: 'http://json-schema.org/draft-07/schema#',
     type: 'object',
     required: ['name', 'port', 'commands'],
     properties: {

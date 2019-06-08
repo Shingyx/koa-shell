@@ -1,29 +1,14 @@
 import { Server } from 'http';
 import Koa from 'koa';
 import Router from 'koa-router';
+import serve from 'koa-static';
+import path from 'path';
+import { ICommand, IKoaShellConfig } from '../interfaces';
 import { executeCommand, validateConfig } from './utilities';
-
-export interface IKoaShellConfig {
-    name: string;
-    port: number;
-    commands: ICommand[];
-}
-
-export interface ICommand {
-    id: string;
-    description: string;
-    script: string;
-}
-
-export interface ICommandResult {
-    exitCode: number;
-    stdout: string;
-    stderr: string;
-}
 
 export class KoaShellServer {
     private readonly app: Koa;
-    private server: Server | undefined;
+    private server?: Server;
 
     constructor(private readonly config: IKoaShellConfig) {
         validateConfig(config);
@@ -39,14 +24,17 @@ export class KoaShellServer {
             }
         });
 
+        const publicPath = path.join(__dirname, '..', '..', 'public');
+        this.app.use(serve(publicPath));
+
         const router = new Router();
 
-        router.get('/config', async (ctx) => {
+        router.get('/api/config', async (ctx) => {
             ctx.body = config;
         });
 
         const commandsRouter = makeCommandsRouter(config.commands);
-        router.use('/commands', commandsRouter.routes(), commandsRouter.allowedMethods());
+        router.use('/api/commands', commandsRouter.routes(), commandsRouter.allowedMethods());
 
         this.app.use(router.routes());
         this.app.use(router.allowedMethods());

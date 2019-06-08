@@ -6,20 +6,21 @@
   "license": "MIT",
   "author": "Su-Shing Chen",
   "files": [
-    "dist/!(__tests__)"
+    "dist/!(__tests__|client)",
+    "public"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "bin": "dist/cli.js",
+  "main": "dist/server/index.js",
+  "types": "dist/server/index.d.ts",
+  "bin": "dist/server/cli.js",
   "scripts": {
     "prebuild": "yarn clean",
-    "build": "tsc",
-    "build-test": "yarn build && yarn test",
-    "clean": "rimraf dist",
+    "build": "tsc && webpack",
+    "clean": "rimraf dist public/dist",
     "format": "yarn tslint --fix && yarn prettier --write",
     "prepare": "yarn build",
     "prepublishOnly": "yarn test",
-    "prettier": "prettier --list-different \"src/**/*.ts\" \"*.md\"",
+    "prettier": "prettier --list-different \"src/**/*.ts\" \"*.md\" webpack.config.js",
+    "start": "concurrently \"webpack-dev-server --open\" \"ts-node-dev --respawn -- ./src/server/cli.ts\"",
     "test": "jest --coverage",
     "posttest": "yarn tslint && yarn prettier",
     "tslint": "tslint --project tsconfig.json"
@@ -30,21 +31,39 @@
     ]
   },
   "dependencies": {
+    "@material-ui/core": "^4.0.2",
+    "@material-ui/icons": "^4.0.1",
     "ajv": "^6.10.0",
     "koa": "^2.7.0",
     "koa-router": "7.4.0",
-    "tslib": "^1.9.3"
+    "koa-static": "^5.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "tslib": "^1.9.3",
+    "typeface-roboto": "^0.0.54"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
     "@types/koa": "^2.0.48",
     "@types/koa-router": "^7.0.40",
-    "@types/node": "^11.13.2",
+    "@types/koa-static": "^4.0.1",
+    "@types/node": "^12.0.7",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "awesome-typescript-loader": "^5.2.1",
+    "concurrently": "^4.1.0",
+    "css-loader": "^2.1.1",
+    "file-loader": "^4.0.0",
     "jest": "^24.7.1",
-    "prettier": "^1.16.4",
+    "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
-    "tslint": "^5.15.0",
+    "style-loader": "^0.23.1",
+    "ts-node-dev": "^1.0.0-pre.39",
+    "tslint": "^5.17.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.4.2"
+    "typescript": "^3.5.1",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.3",
+    "webpack-dev-server": "^3.7.1"
   }
 }
