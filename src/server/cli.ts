@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { readFileSync } from 'fs';
 import { KoaShellServer } from './koa-shell-server';
 

@@ -23,6 +23,7 @@ const ajvValidate = new Ajv().compile({
         },
     },
 });
+const idRegex = /^[a-z0-9\-_]+$/i;
 
 export function validateConfig(config: IKoaShellConfig): void {
     if (!ajvValidate(config)) {
@@ -30,7 +31,11 @@ export function validateConfig(config: IKoaShellConfig): void {
     }
     const commandIds = new Set<string>();
     for (const { id } of config.commands) {
-        // TODO validate IDs based on RFC for path names
+        if (!idRegex.test(id)) {
+            throw new Error(
+                'Command IDs must only contain alphanumeric characters, hyphens, and underscores!',
+            );
+        }
         if (commandIds.has(id)) {
             throw new Error('All commands do not have unique IDs!');
         }

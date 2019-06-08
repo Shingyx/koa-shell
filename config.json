@@ -4,13 +4,13 @@
   "commands": [
     {
       "id": "hello-world",
-      "description": "Echos 'Hello World!'",
+      "description": "Echos 'Hello world!'",
       "script": "echo Hello world!"
     },
     {
       "id": "hello-other-world",
-      "description": "Echos 'Hello Other World!'",
-      "script": "echo Hello Other World!"
+      "description": "Echos 'Hello other world!'",
+      "script": "echo Hello other world!"
     },
     {
       "id": "long-task",

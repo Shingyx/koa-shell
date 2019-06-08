@@ -193,4 +193,50 @@ describe('validateConfig', () => {
         };
         expect(() => validateConfig(config)).toThrow();
     });
+
+    describe('command id validation', () => {
+        test('allow id consisting of entire alphabet and all digits', () => {
+            const config: IKoaShellConfig = {
+                name: 'name',
+                port: 9001,
+                commands: [
+                    {
+                        id: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+                        description: 'description',
+                        script: 'echo me',
+                    },
+                ],
+            };
+            validateConfig(config);
+        });
+
+        test('allow hyphens and underscores in command ids', () => {
+            const config: IKoaShellConfig = {
+                name: 'name',
+                port: 9001,
+                commands: [
+                    { id: 'id-1', description: 'description', script: 'echo hello 1' },
+                    { id: 'id_2', description: 'description', script: 'echo hello 2' },
+                ],
+            };
+            validateConfig(config);
+        });
+
+        for (const char of [' ', '!', '@', ',', '.', '&', '?', '=']) {
+            test(`throw when command contains "${char}"`, () => {
+                const config = {
+                    name: 'name',
+                    port: 9001,
+                    commands: [
+                        {
+                            id: `hi${char}world`,
+                            description: 'description',
+                            script: 'echo hi world',
+                        },
+                    ],
+                };
+                expect(() => validateConfig(config)).toThrow();
+            });
+        }
+    });
 });
