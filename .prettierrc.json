@@ -3,5 +3,13 @@
   "tabWidth": 4,
   "singleQuote": true,
   "trailingComma": "all",
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": ["*.{json,md,yml}"],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ]
 }

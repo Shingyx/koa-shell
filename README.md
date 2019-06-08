@@ -14,8 +14,8 @@ _koa-shell_ is intended to only be used from within the the local network. I wou
 
 Install _koa-shell_ with either of the following, depending on your preferred package manager:
 
--   `yarn global add koa-shell`
--   `npm install --global koa-shell`
+- `yarn global add koa-shell`
+- `npm install --global koa-shell`
 
 Then use it like the following:
 
@@ -40,12 +40,12 @@ $ curl -X POST http://localhost/api/commands/ping
 
 ## Configuration
 
--   `name` - Name of the server. Used for the web application's title.
--   `port` - Port to host the server on.
--   `commands` - Array of available commands to execute.
-    -   `id` - Unique identifier for the command. This is can only contain alphanumeric characters, hyphens, and underscores.
-    -   `description` - Text describing what this command achieves.
-    -   `script` - The script to be executed on the host.
+- `name` - Name of the server. Used for the web application's title.
+- `port` - Port to host the server on.
+- `commands` - Array of available commands to execute.
+  - `id` - Unique identifier for the command. This is can only contain alphanumeric characters, hyphens, and underscores.
+  - `description` - Text describing what this command achieves.
+  - `script` - The script to be executed on the host.
 
 ## REST Endpoints
 
@@ -94,8 +94,8 @@ $ curl -X POST http://localhost/api/commands/ping
 
 ## Notes
 
--   _koa-shell_ can be imported as a library.
--   You may want to use a process manager such as `runit` to manage the server.
+- _koa-shell_ can be imported as a library.
+- You may want to use a process manager such as `runit` to manage the server.
 
 [travis-image]: https://img.shields.io/travis/com/Shingyx/koa-shell/master.svg?style=flat-square
 [travis-url]: https://travis-ci.com/Shingyx/koa-shell

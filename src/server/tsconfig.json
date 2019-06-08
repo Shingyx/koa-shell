@@ -1,6 +1,4 @@
 {
   "extends": "../../tsconfig.common",
-  "references": [
-    { "path": "../common" }
-  ]
+  "references": [{ "path": "../common" }]
 }
