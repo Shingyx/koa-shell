@@ -43,18 +43,17 @@ export function validateConfig(config: IKoaShellConfig): void {
     }
 }
 
-export async function executeCommand(command: string): Promise<ICommandResult> {
-    let success = false;
-    let output = '';
-    await new Promise((resolve) => {
+export function executeCommand(command: string): Promise<ICommandResult> {
+    return new Promise((resolve) => {
+        let output = '';
         const child = spawn(command, { shell: true });
         child.stdout.on('data', (data) => (output += data));
         child.stderr.on('data', (data) => (output += data));
         child.on('close', (code) => {
-            success = code === 0;
-            resolve();
+            resolve({
+                success: code === 0,
+                output: output.trim(),
+            });
         });
     });
-    output = output.trim();
-    return { success, output };
 }
