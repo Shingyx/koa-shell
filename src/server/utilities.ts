@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
 import { spawn } from 'child_process';
-import { ICommandResult, IKoaShellConfig } from '../interfaces';
+import { ICommandResult, IKoaShellConfig } from '../common/interfaces';
 
 const ajvValidate = new Ajv().compile({
     type: 'object',

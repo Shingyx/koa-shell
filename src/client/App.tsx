@@ -16,7 +16,7 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import React from 'react';
-import { ICommand, ICommandResult } from '../interfaces';
+import { ICommand, ICommandResult } from '../common/interfaces';
 
 interface IProps extends WithStyles<typeof styles> {}
 

@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.common",
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es2018"
+    ],
+    "jsx": "react",
+    "noEmit": true
+  },
+  "references": [
+    { "path": "../common" }
+  ]
+}

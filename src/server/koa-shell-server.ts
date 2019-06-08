@@ -3,7 +3,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import serve from 'koa-static';
 import path from 'path';
-import { ICommand, IKoaShellConfig } from '../interfaces';
+import { ICommand, IKoaShellConfig } from '../common/interfaces';
 import { executeCommand, validateConfig } from './utilities';
 
 export class KoaShellServer {

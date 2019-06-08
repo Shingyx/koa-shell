@@ -1,48 +1,46 @@
 {
   "name": "koa-shell",
   "version": "0.1.0",
-  "description": "Web server for executing shell scripts",
+  "description": "Web app and REST server for executing shell scripts",
   "repository": "https://github.com/Shingyx/koa-shell",
   "license": "MIT",
   "author": "Su-Shing Chen",
-  "files": [
-    "dist/!(__tests__|client)",
-    "public"
-  ],
   "main": "dist/server/index.js",
   "types": "dist/server/index.d.ts",
   "bin": "dist/server/cli.js",
   "scripts": {
     "prebuild": "yarn clean",
-    "build": "tsc && webpack",
+    "build": "tsc --build && webpack",
     "clean": "rimraf dist public/dist",
+    "dev-client": "webpack-dev-server --open",
+    "dev-server": "ts-node-dev --project src/server/tsconfig.json --respawn -- src/server/cli.ts",
     "format": "yarn tslint --fix && yarn prettier --write",
     "prepare": "yarn build",
     "prepublishOnly": "yarn test",
-    "prettier": "prettier --list-different \"src/**/*.ts\" \"*.md\" webpack.config.js",
-    "start": "concurrently \"webpack-dev-server --open\" \"ts-node-dev --respawn -- ./src/server/cli.ts\"",
+    "prettier": "prettier --list-different \"{src,test}/**/*.{ts,tsx}\" \"*.md\" webpack.config.js",
+    "start": "concurrently yarn:dev-client yarn:dev-server",
     "test": "jest",
     "posttest": "yarn tslint && yarn prettier",
-    "tslint": "tslint --project tsconfig.json"
+    "tslint": "tslint --project tsconfig.tslint.json"
   },
   "jest": {
-    "testMatch": [
-      "**/*.test.js"
-    ]
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.common.json"
+      }
+    }
   },
   "dependencies": {
-    "@material-ui/core": "^4.0.2",
-    "@material-ui/icons": "^4.0.1",
     "ajv": "^6.10.0",
     "koa": "^2.7.0",
     "koa-router": "7.4.0",
     "koa-static": "^5.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "tslib": "^1.9.3",
-    "typeface-roboto": "^0.0.54"
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
+    "@material-ui/core": "^4.0.2",
+    "@material-ui/icons": "^4.0.1",
     "@types/jest": "^24.0.11",
     "@types/koa": "^2.0.48",
     "@types/koa-router": "^7.0.40",
@@ -50,17 +48,21 @@
     "@types/node": "^12.0.7",
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
-    "awesome-typescript-loader": "^5.2.1",
     "concurrently": "^4.1.0",
     "css-loader": "^2.1.1",
     "file-loader": "^4.0.0",
     "jest": "^24.7.1",
     "prettier": "^1.18.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "rimraf": "^2.6.3",
     "style-loader": "^0.23.1",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^6.0.2",
     "ts-node-dev": "^1.0.0-pre.39",
     "tslint": "^5.17.0",
     "tslint-config-prettier": "^1.18.0",
+    "typeface-roboto": "^0.0.54",
     "typescript": "^3.5.1",
     "webpack": "^4.33.0",
     "webpack-cli": "^3.3.3",
