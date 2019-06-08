@@ -21,7 +21,7 @@
     "prepublishOnly": "yarn test",
     "prettier": "prettier --list-different \"src/**/*.ts\" \"*.md\" webpack.config.js",
     "start": "concurrently \"webpack-dev-server --open\" \"ts-node-dev --respawn -- ./src/server/cli.ts\"",
-    "test": "jest --coverage",
+    "test": "jest",
     "posttest": "yarn tslint && yarn prettier",
     "tslint": "tslint --project tsconfig.json"
   },
