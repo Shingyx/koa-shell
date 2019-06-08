@@ -1,8 +1,14 @@
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import green from '@material-ui/core/colors/green';
 import Container from '@material-ui/core/Container';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
@@ -17,7 +23,9 @@ interface IProps extends WithStyles<typeof styles> {}
 interface IState {
     name: string;
     commands: ICommand[];
-    loadingIndex: number;
+    runningCommandIndex: number;
+    commandResult: ICommandResult;
+    showDialog: boolean;
 }
 
 function styles(theme: Theme) {
@@ -28,11 +36,12 @@ function styles(theme: Theme) {
         },
         card: {
             display: 'flex',
-            marginTop: theme.spacing(2),
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
             alignItems: 'center',
         },
         cardHeader: {
-            flex: '1 0 auto',
+            flex: '1 1 auto',
         },
         fabWrapper: {
             marginRight: theme.spacing(2),
@@ -44,10 +53,7 @@ function styles(theme: Theme) {
             left: -6,
             zIndex: 1,
         },
-        iconButton: {
-            margin: theme.spacing(1),
-        },
-        playIcon: {
+        fabIcon: {
             height: 32,
             width: 32,
         },
@@ -60,7 +66,12 @@ class App extends React.Component<IProps, IState> {
         this.state = {
             name: 'Loading...',
             commands: [],
-            loadingIndex: -1,
+            runningCommandIndex: -1,
+            commandResult: {
+                success: true,
+                output: '',
+            },
+            showDialog: false,
         };
     }
 
@@ -78,12 +89,13 @@ class App extends React.Component<IProps, IState> {
         const { classes } = this.props;
         return (
             <div>
-                <Typography className={classes.title} variant={'h2'}>
+                <Typography className={classes.title} variant={'h2'} gutterBottom={true}>
                     {this.state.name}
                 </Typography>
                 <Container>
                     {this.state.commands.map((command, index) => this.commandCard(command, index))}
                 </Container>
+                {this.resultsDialog()}
             </div>
         );
     }
@@ -100,11 +112,11 @@ class App extends React.Component<IProps, IState> {
                 <div className={classes.fabWrapper}>
                     <Fab
                         color={'primary'}
-                        disabled={this.state.loadingIndex >= 0}
+                        disabled={this.state.runningCommandIndex >= 0}
                         onClick={() => this.onCommandClick(command, index)}
                     >
-                        <PlayArrow className={classes.playIcon} />
-                        {this.state.loadingIndex === index && (
+                        <PlayArrow className={classes.fabIcon} />
+                        {this.state.runningCommandIndex === index && (
                             <CircularProgress className={classes.fabProgress} size={68} />
                         )}
                     </Fab>
@@ -113,10 +125,36 @@ class App extends React.Component<IProps, IState> {
         );
     }
 
+    private resultsDialog(): JSX.Element {
+        const handleClose = () => this.setState({ showDialog: false });
+        return (
+            <Dialog
+                maxWidth={'sm'}
+                fullWidth={true}
+                open={this.state.showDialog}
+                onClose={handleClose}
+            >
+                <DialogTitle>
+                    {this.state.commandResult.success ? 'Command Succeeded' : 'Command Failed'}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        {this.state.commandResult.output || 'No output given'}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color={'primary'} autoFocus>
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    }
+
     private onCommandClick(command: ICommand, index: number): void {
-        this.setState({ loadingIndex: index });
+        this.setState({ runningCommandIndex: index });
         this.executeCommand(command)
-            .finally(() => this.setState({ loadingIndex: -1 }))
+            .finally(() => this.setState({ runningCommandIndex: -1 }))
             .catch(alert);
     }
 
@@ -126,7 +164,7 @@ class App extends React.Component<IProps, IState> {
             throw new Error('Failed to start executing command');
         }
         const result: ICommandResult = await response.json();
-        console.log(result);
+        this.setState({ showDialog: true, commandResult: result });
     }
 }
 

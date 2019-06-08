@@ -8,13 +8,14 @@ import { executeCommand, validateConfig } from './utilities';
 
 export class KoaShellServer {
     private readonly app: Koa;
+    private globalRequestId: number;
     private server?: Server;
-    private globalRequestId: number = 0;
 
     constructor(private readonly config: IKoaShellConfig) {
         validateConfig(config);
 
         this.app = new Koa();
+        this.globalRequestId = 0;
 
         this.app.use(async (ctx, next) => {
             const requestId = ++this.globalRequestId % Number.MAX_SAFE_INTEGER;
@@ -31,7 +32,7 @@ export class KoaShellServer {
                 ctx.throw(500);
             } finally {
                 console.log(
-                    `responded to request - ${JSON.stringify({
+                    `completed request - ${JSON.stringify({
                         requestId,
                         status: ctx.status,
                         body: ctx.body || null,

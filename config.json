@@ -21,6 +21,11 @@
       "id": "error-test",
       "description": "A command which fails",
       "script": "node -e \"console.error('This failed');process.exit(1);\""
+    },
+    {
+      "id": "no-output",
+      "description": "Exits successfully without any output",
+      "script": "exit 0"
     }
   ]
 }
