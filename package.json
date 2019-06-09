@@ -1,6 +1,6 @@
 {
   "name": "koa-shell",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Configurable REST server and web app for executing shell scripts",
   "repository": "https://github.com/Shingyx/koa-shell",
   "license": "MIT",
