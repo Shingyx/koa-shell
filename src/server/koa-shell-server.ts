@@ -22,6 +22,7 @@ export class KoaShellServer {
             console.log(
                 `received request - ${JSON.stringify({
                     requestId,
+                    time: new Date().toISOString(),
                     path: ctx.path,
                 })}`,
             );
@@ -34,6 +35,7 @@ export class KoaShellServer {
                 console.log(
                     `completed request - ${JSON.stringify({
                         requestId,
+                        time: new Date().toISOString(),
                         status: ctx.status,
                         body: ctx.body || null,
                     })}`,
