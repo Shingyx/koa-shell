@@ -1,5 +1,5 @@
 {
-  "name": "Test Koa Server",
+  "name": "Sample Server",
   "port": 9001,
   "commands": [
     {

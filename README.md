@@ -8,7 +8,7 @@ This can be used to remotely send commands to a computer running on the local ne
 
 _koa-shell_ is intended to only be used from within the the local network. I would not recommend exposing this server to the Internet without additional security layers.
 
-![Screenshot](https://raw.github.com/Shingyx/koa-shell/master/.github/screenshot.jpg)
+![Sample](https://raw.github.com/Shingyx/koa-shell/master/.github/sample.gif)
 
 ## Usage
 
