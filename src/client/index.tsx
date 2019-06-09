@@ -4,8 +4,8 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'typeface-roboto';
 import App from './App';
+import './fonts.css';
 
 const theme = createMuiTheme({
     palette: {

@@ -17,7 +17,7 @@
     "format": "yarn tslint --fix && yarn prettier --write",
     "prepare": "yarn build",
     "prepublishOnly": "yarn test",
-    "prettier": "prettier --check \"**/*.{js,json,md,ts,tsx,yml}\" --ignore-path .gitignore",
+    "prettier": "prettier --check \"**/*.{css,js,json,md,ts,tsx,yml}\" --ignore-path .gitignore",
     "start": "concurrently yarn:dev-client yarn:dev-server",
     "test": "jest",
     "posttest": "yarn tslint && yarn prettier",
