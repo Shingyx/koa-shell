@@ -3,19 +3,19 @@
   "port": 9001,
   "commands": [
     {
+      "id": "ping",
+      "description": "Pings the server",
+      "script": "echo PONG"
+    },
+    {
       "id": "hello-world",
       "description": "Echos 'Hello world!'",
       "script": "echo Hello world!"
     },
     {
-      "id": "hello-other-world",
-      "description": "Echos 'Hello other world!'",
-      "script": "echo Hello other world!"
-    },
-    {
       "id": "long-task",
-      "description": "Waits 5 seconds before replying",
-      "script": "node -e \"setTimeout(() => console.log('That took a while'), 5000)\""
+      "description": "Waits 2 seconds before replying",
+      "script": "node -e \"setTimeout(() => console.log('That took a while'), 2000)\""
     },
     {
       "id": "error-test",

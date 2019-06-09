@@ -11,6 +11,7 @@
     "importHelpers": true,
     "newLine": "LF",
     "noUnusedLocals": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true
   }

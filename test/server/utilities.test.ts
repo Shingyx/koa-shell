@@ -194,6 +194,18 @@ describe('validateConfig', () => {
         expect(() => validateConfig(config)).toThrow();
     });
 
+    test("throw when an id is the upper case version of another command's", () => {
+        const config = {
+            name: 'name',
+            port: 9001,
+            commands: [
+                { id: 'command1', description: 'first command', script: 'echo hello world' },
+                { id: 'COMMAND1', description: 'dupe command', script: 'echo hello world' },
+            ],
+        };
+        expect(() => validateConfig(config)).toThrow();
+    });
+
     describe('command id validation', () => {
         test('allow id consisting of entire alphabet and all digits', () => {
             const config: IKoaShellConfig = {
